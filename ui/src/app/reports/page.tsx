@@ -58,7 +58,7 @@ export default function ReportsPage() {
   const [report, setReport] = useState<DailyReport | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [timezone, setTimezone] = useState('America/New_York');
+  const [timezone, setTimezone] = useState('Asia/Kolkata');
   const auth = useAuth();
 
   // Fetch workflows on mount
@@ -256,7 +256,7 @@ export default function ReportsPage() {
       {/* Timezone Display and Download Button */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
         <div className="text-sm text-muted-foreground">
-          Showing data for {timezone} timezone
+          Showing data for {timezone === 'Asia/Kolkata' ? 'India Standard Time (IST)' : timezone} timezone
           {selectedWorkflow !== 'all' && (
             <span> • Filtered by: {workflows.find(w => w.id.toString() === selectedWorkflow)?.name}</span>
           )}

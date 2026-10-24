@@ -1,11 +1,10 @@
+import { BRAND_NAME } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
-// Reusable Dograh wordmark. Theme-aware by default: the dark logo shows on light
-// surfaces and the light/cream logo shows on dark. Pass `inverse` to force the
-// light logo on an always-dark surface (e.g. the auth brand panel). Pass `mark`
-// to render the square logo mark instead of the full wordmark (e.g. the app
-// sidebar header). Height is controlled by the caller via className (e.g.
-// "h-7"); width stays auto so each lockup keeps its aspect ratio.
+// Inline-SVG logo: a rounded tile holding stylised sound bars. Height comes
+// from the caller via className (e.g. "h-7"); the wordmark is live text so it
+// follows the theme. `mark` renders the tile alone; `inverse` forces light text
+// for always-dark surfaces.
 export function BrandLogo({
   className,
   inverse = false,
@@ -15,24 +14,51 @@ export function BrandLogo({
   inverse?: boolean;
   mark?: boolean;
 }) {
+  const tile = (
+    <svg
+      viewBox="0 0 32 32"
+      aria-hidden
+      className="aspect-square h-full shrink-0"
+    >
+      <defs>
+        <linearGradient id="brand-tile" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#2f7d62" />
+          <stop offset="1" stopColor="#c9824a" />
+        </linearGradient>
+      </defs>
+      <rect width="32" height="32" rx="9" fill="url(#brand-tile)" />
+      <g fill="#fff">
+        <rect x="7" y="13" width="3" height="6" rx="1.5" />
+        <rect x="12" y="9" width="3" height="14" rx="1.5" />
+        <rect x="17" y="6" width="3" height="20" rx="1.5" />
+        <rect x="22" y="11" width="3" height="10" rx="1.5" />
+      </g>
+    </svg>
+  );
+
   if (mark) {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img src="/dograh-mark.png" alt="Dograh" className={cn("w-auto select-none", className)} />
+      <span role="img" aria-label={BRAND_NAME} className={cn("inline-flex select-none", className)}>
+        {tile}
+      </span>
     );
   }
-  if (inverse) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img src="/dograh-logo-inverse.png" alt="Dograh" className={cn("w-auto select-none", className)} />
-    );
-  }
+
   return (
-    <>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/dograh-logo.png" alt="Dograh" className={cn("block w-auto select-none dark:hidden", className)} />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/dograh-logo-inverse.png" alt="Dograh" className={cn("hidden w-auto select-none dark:block", className)} />
-    </>
+    <span
+      role="img"
+      aria-label={BRAND_NAME}
+      className={cn("inline-flex select-none items-center gap-2.5", className)}
+    >
+      {tile}
+      <span
+        className={cn(
+          "font-display whitespace-nowrap text-[1.05em] font-extrabold leading-none tracking-tight",
+          inverse ? "text-white" : "text-foreground",
+        )}
+      >
+        {BRAND_NAME}
+      </span>
+    </span>
   );
 }

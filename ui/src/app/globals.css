@@ -7,7 +7,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-manrope);
   --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -46,85 +46,82 @@
   --color-cta-foreground: var(--cta-foreground);
 }
 
+@theme inline {
+  --font-display: var(--font-manrope);
+}
+
+/* Warm paper neutrals with a forest-green primary and a terracotta call-to-action. */
 :root {
-  --radius: 0.625rem;
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  /* Single restrained warm accent — used only on primary CTAs + focus rings. */
-  --cta: oklch(0.72 0.15 65);
-  --cta-foreground: oklch(0.16 0.02 60);
-  /* Giant faded "dograh" wordmark (authentic Proxima Nova letterforms traced
-     from the brand logo PNG — the font is commercial, so the lettering ships
-     as static artwork in /public; fill + 0.9% opacity are baked into the
-     files). Theme-switched here; consumed by .app-surface and .auth-imprint. */
-  --brand-imprint: url("/brand-imprint-light.svg");
+  --radius: 0.5rem;
+  --background: oklch(0.975 0.006 85);
+  --foreground: oklch(0.24 0.015 70);
+  --card: oklch(0.995 0.003 85);
+  --card-foreground: oklch(0.24 0.015 70);
+  --popover: oklch(0.995 0.003 85);
+  --popover-foreground: oklch(0.24 0.015 70);
+  --primary: oklch(0.45 0.09 165);
+  --primary-foreground: oklch(0.985 0.005 85);
+  --secondary: oklch(0.94 0.01 85);
+  --secondary-foreground: oklch(0.3 0.03 70);
+  --muted: oklch(0.945 0.008 85);
+  --muted-foreground: oklch(0.5 0.02 75);
+  --accent: oklch(0.93 0.025 160);
+  --accent-foreground: oklch(0.3 0.07 165);
+  --destructive: oklch(0.58 0.2 28);
+  --border: oklch(0.9 0.01 85);
+  --input: oklch(0.88 0.012 85);
+  --ring: oklch(0.55 0.09 165);
+  --chart-1: oklch(0.5 0.09 165);
+  --chart-2: oklch(0.68 0.13 55);
+  --chart-3: oklch(0.7 0.11 120);
+  --chart-4: oklch(0.78 0.13 85);
+  --chart-5: oklch(0.6 0.14 15);
+  --sidebar: oklch(0.955 0.009 85);
+  --sidebar-foreground: oklch(0.35 0.02 70);
+  --sidebar-primary: oklch(0.45 0.09 165);
+  --sidebar-primary-foreground: oklch(0.985 0.005 85);
+  --sidebar-accent: oklch(0.92 0.02 150);
+  --sidebar-accent-foreground: oklch(0.25 0.05 165);
+  --sidebar-border: oklch(0.89 0.012 85);
+  --sidebar-ring: oklch(0.55 0.09 165);
+  --cta: oklch(0.68 0.14 50);
+  --cta-foreground: oklch(0.2 0.03 50);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
+  --background: oklch(0.18 0.01 70);
+  --foreground: oklch(0.95 0.008 85);
+  --card: oklch(0.22 0.01 70);
+  --card-foreground: oklch(0.95 0.008 85);
+  --popover: oklch(0.24 0.012 70);
+  --popover-foreground: oklch(0.95 0.008 85);
+  --primary: oklch(0.72 0.12 165);
+  --primary-foreground: oklch(0.18 0.02 165);
+  --secondary: oklch(0.28 0.012 70);
+  --secondary-foreground: oklch(0.95 0.008 85);
+  --muted: oklch(0.26 0.01 70);
+  --muted-foreground: oklch(0.72 0.02 80);
+  --accent: oklch(0.3 0.03 160);
+  --accent-foreground: oklch(0.95 0.008 85);
+  --destructive: oklch(0.7 0.17 25);
   --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-  /* Warm accent, slightly brighter against the near-black surfaces. */
-  --cta: oklch(0.78 0.16 67);
-  --cta-foreground: oklch(0.16 0.02 60);
-  --brand-imprint: url("/brand-imprint-dark.svg");
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.72 0.12 165);
+  --chart-1: oklch(0.72 0.12 165);
+  --chart-2: oklch(0.76 0.13 55);
+  --chart-3: oklch(0.78 0.11 120);
+  --chart-4: oklch(0.82 0.13 85);
+  --chart-5: oklch(0.7 0.14 15);
+  --sidebar: oklch(0.2 0.01 70);
+  --sidebar-foreground: oklch(0.88 0.012 80);
+  --sidebar-primary: oklch(0.72 0.12 165);
+  --sidebar-primary-foreground: oklch(0.18 0.02 165);
+  --sidebar-accent: oklch(0.28 0.025 160);
+  --sidebar-accent-foreground: oklch(0.96 0.008 85);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.72 0.12 165);
+  --cta: oklch(0.76 0.13 55);
+  --cta-foreground: oklch(0.2 0.03 50);
 }
 
 @layer base {
@@ -230,39 +227,14 @@
     .auth-waveform span { animation: none; }
   }
 
-  /* Matte app background — flat charcoal (dark) / soft paper (light), NO
-     gradients, with one subtle graphic in BOTH themes: the giant faded
-     "dograh" wordmark (--brand-imprint, defined in :root/.dark) pinned to
-     the bottom of the viewport, echoing the dograh.com footer. */
-  /* NOTE: background-attachment: fixed positions in VIEWPORT space but only
-     paints inside .app-surface, which starts right of the ~270px sidebar —
-     the +135px x-shift recentres the wordmark on the VISIBLE canvas. */
+  /* App canvas: a faint violet wash at the top so pages feel lit, flat below. */
   .app-surface {
-    background-color: oklch(0.984 0.001 80);
-    background-image: var(--brand-imprint);
-    background-size: min(68vw, 980px) auto;
-    background-position: calc(50% + 135px) calc(100% - 24px);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-  }
-  /* Sidebar is offcanvas on small screens — true centre there. */
-  @media (max-width: 767px) {
-    .app-surface {
-      background-position: center calc(100% - 24px);
-    }
-  }
-  .dark .app-surface {
-    background-color: oklch(0.165 0.002 80);
-  }
-
-  /* Giant faded "dograh" imprint for the auth pages (applied to the AuthShell
-     form column, shared by Stack + OSS login/signup). Same --brand-imprint as
-     .app-surface; element-relative here (no fixed attachment), so it centers
-     and scales to whatever element carries the class. */
-  .auth-imprint {
-    background-image: var(--brand-imprint);
-    background-size: min(86%, 920px) auto;
-    background-position: center calc(100% - 32px);
+    background-color: var(--background);
+    background-image: radial-gradient(
+      60rem 22rem at 70% -6rem,
+      color-mix(in oklch, var(--primary) 9%, transparent),
+      transparent 70%
+    );
     background-repeat: no-repeat;
   }
 
@@ -304,36 +276,12 @@
    layer than @layer components — un-layered author CSS beats both.
 --------------------------------------------------------------------------- */
 
-/* Floating-dock sidebar: detached rounded panel. Targets the shadcn sidebar's
-   inner panel; applied via .app-sidebar-dock on <Sidebar variant="floating">. */
-.app-sidebar-dock [data-slot="sidebar-inner"] {
-  border-radius: 1.25rem;
-  overflow: hidden;
-}
-/* Flat carbon-charcoal panel with a soft light glow along the LEFT edge:
-   a 1px highlight line plus an inner bloom fading rightwards. */
-.dark .app-sidebar-dock [data-slot="sidebar-inner"] {
-  border-color: rgb(255 255 255 / 0.1);
-  background-color: oklch(0.18 0.002 80);
-  box-shadow:
-    inset 1px 0 0 rgb(255 255 255 / 0.1),
-    inset 3px 0 6px -4px rgb(255 255 255 / 0.08),
-    0 24px 50px -14px rgb(0 0 0 / 0.85);
-}
-
-/* Card surface ("Crosshatch + Top-Lit Edge", user-approved 2026-06-11 after a
-   3-round design board): a 45° hairline twill weave at 1% laid over the panel
-   colour, plus — dark mode only — a brighter SOLID top border, like light
-   catching the machined top edge of the panel. Applied app-wide by the Card
-   primitive (components/ui/card.tsx). Un-layered so border-top-color beats
-   the border-border/60 utility. No gradients (user constraint). */
+/* Cards: crisp hairline + soft lift, no texture. */
 .card-weave {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath d='M0 0l12 12M12 0L0 12' stroke='%23000000' stroke-opacity='.015' fill='none'/%3E%3C/svg%3E");
-  background-repeat: repeat;
+  box-shadow: 0 1px 2px color-mix(in oklch, var(--foreground) 6%, transparent);
 }
 .dark .card-weave {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath d='M0 0l12 12M12 0L0 12' stroke='%23ffffff' stroke-opacity='.01' fill='none'/%3E%3C/svg%3E");
-  border-top-color: rgb(255 255 255 / 0.2);
+  box-shadow: none;
 }
 
 /* Lead-form shell ("Ledger" treatment, user-approved 2026-06-11): neutral
@@ -392,7 +340,7 @@
   border-bottom-color: var(--cta);
 }
 
-/* Event banner (Dograh Cloud only, NEXT_PUBLIC_EVENT_BANNER=1). The bar is
+/* Event banner (Hosted deployments only, NEXT_PUBLIC_EVENT_BANNER=1). The bar is
    sticky at top-0 in the root layout, so while it is up it permanently owns
    --event-banner-h pixels at the top of the viewport. Two things have to give
    way, and both are utility-class'd primitives we do not want to fork:
@@ -415,4 +363,13 @@
 [data-event-banner] [class~="min-h-screen"],
 [data-event-banner] [class~="min-h-svh"] {
   min-height: calc(100svh - var(--event-banner-h, 0px));
+}
+
+/* Sidebar nav scrolls when needed but never shows a scrollbar. */
+[data-slot="sidebar-content"] {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+[data-slot="sidebar-content"]::-webkit-scrollbar {
+  display: none;
 }

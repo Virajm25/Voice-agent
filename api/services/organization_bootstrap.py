@@ -28,7 +28,7 @@ from api.services.configuration.model_connections import (
 from api.services.mps_billing import ensure_hosted_mps_billing_account_v2
 from api.services.mps_service_key_client import mps_service_key_client
 
-MANAGED_SERVICE_KEY_NAME = "Default Dograh Model Service Key"
+MANAGED_SERVICE_KEY_NAME = "Default Straveda Voice Model Service Key"
 MANAGED_CONNECTION_NAME = "Dograh"
 DEFAULT_CONFIGURATION_NAME = "Organization default"
 

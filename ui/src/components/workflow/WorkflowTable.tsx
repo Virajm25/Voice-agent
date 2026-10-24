@@ -8,16 +8,27 @@ import {
     Inbox,
     Pencil,
     RotateCcw,
+    Trash2,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
 
 import {
+    deleteWorkflowApiV1WorkflowWorkflowIdDelete,
     moveWorkflowToFolderApiV1WorkflowWorkflowIdFolderPut,
     updateWorkflowStatusApiV1WorkflowWorkflowIdStatusPut,
 } from '@/client/sdk.gen';
 import type { FolderResponse } from '@/client/types.gen';
+import {
+    AlertDialog,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import {
@@ -37,6 +48,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { useOrganizationTimezone } from '@/hooks/useOrganizationTimezone';
+import { detailFromError } from '@/lib/apiError';
 import { formatDate } from '@/lib/dateTime';
 
 interface Workflow {
@@ -71,6 +83,8 @@ export function WorkflowTable({
     const [isPending, startTransition] = useTransition();
     const [loadingWorkflowId, setLoadingWorkflowId] = useState<number | null>(null);
     const [movingWorkflowId, setMovingWorkflowId] = useState<number | null>(null);
+    const [workflowToDelete, setWorkflowToDelete] = useState<Workflow | null>(null);
+    const [deleting, setDeleting] = useState(false);
 
     const handleEdit = (id: number) => {
         router.push(`/workflow/${id}`);
@@ -103,6 +117,30 @@ export function WorkflowTable({
             toast.error(`Failed to ${action.toLowerCase()} workflow`);
         } finally {
             setLoadingWorkflowId(null);
+        }
+    };
+
+    const handleDelete = async () => {
+        if (!workflowToDelete) return;
+        setDeleting(true);
+        try {
+            const response = await deleteWorkflowApiV1WorkflowWorkflowIdDelete({
+                path: { workflow_id: workflowToDelete.id },
+            });
+            if (response.error) {
+                toast.error(detailFromError(response.error, 'Failed to delete agent'));
+                return;
+            }
+            toast.success('Agent deleted permanently');
+            setWorkflowToDelete(null);
+            startTransition(() => {
+                router.refresh();
+            });
+        } catch (error) {
+            console.error('Error deleting workflow:', error);
+            toast.error('Failed to delete agent');
+        } finally {
+            setDeleting(false);
         }
     };
 
@@ -262,6 +300,18 @@ export function WorkflowTable({
                                                 </>
                                             )}
                                         </Button>
+                                        {showArchived && (
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                onClick={() => setWorkflowToDelete(workflow)}
+                                                disabled={loadingWorkflowId === workflow.id || isPending}
+                                                className="flex items-center gap-2 text-destructive hover:text-destructive"
+                                            >
+                                                <Trash2 size={16} />
+                                                Delete
+                                            </Button>
+                                        )}
                                     </div>
                                 </TableCell>
                             </TableRow>
@@ -269,6 +319,28 @@ export function WorkflowTable({
                     </TableBody>
                 </Table>
             </CardContent>
+            <AlertDialog
+                open={workflowToDelete !== null}
+                onOpenChange={(open) => {
+                    if (!open && !deleting) setWorkflowToDelete(null);
+                }}
+            >
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Delete this agent permanently?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            &quot;{workflowToDelete?.name}&quot; and all of its runs and versions will be
+                            removed. This cannot be undone.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
+                        <Button variant="destructive" onClick={handleDelete} disabled={deleting}>
+                            {deleting ? 'Deleting...' : 'Delete'}
+                        </Button>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </Card>
     );
 }

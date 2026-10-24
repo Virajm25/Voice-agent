@@ -46,19 +46,19 @@ _MPS_UNREACHABLE_ERRORS = (
 
 OSS_QUOTA_EXCEEDED_MESSAGE = (
     "You have exhausted your trial credits. "
-    "Please sign up on app.dograh.com to create a "
-    "new service key and set up in your model configurations."
+    "Please sign up for a "
+    "new service key and set it up in your model configurations."
 )
 
 HOSTED_QUOTA_EXCEEDED_MESSAGE = (
-    "You have exhausted your Dograh credits. "
+    "You have exhausted your Straveda Voice credits. "
     "Please purchase more credits from /billing "
     "or change providers in Models configurations."
 )
 
 OSS_HOSTED_KEY_QUOTA_EXCEEDED_MESSAGE = (
-    "The organization linked to this Dograh service key has insufficient credits. "
-    "Please add credits at app.dograh.com or change providers in Models configurations."
+    "The organization linked to this Straveda Voice service key has insufficient credits. "
+    "Please add credits to your account or change providers in Models configurations."
 )
 
 SERVICE_TOKEN_ORG_MISMATCH_MESSAGE = (

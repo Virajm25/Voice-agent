@@ -274,15 +274,15 @@ export default function CustomEdge(props: CustomEdgeProps) {
                     style={{
                         ...style,
                         stroke: selected
-                            ? '#3B82F6'  // blue-500 when selected
+                            ? '#2f7d62'  // green when selected
                             : isHovered
-                                ? '#60A5FA'  // blue-400 when hovered
-                                : data?.invalid ? '#EF4444' : '#94A3B8',
+                                ? '#c9824a'  // terracotta when hovered
+                                : data?.invalid ? '#EF4444' : '#a8a090',
                         strokeWidth: selected ? 4 : isHovered ? 3 : 2.5,
                         filter: selected
-                            ? 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.6))'
+                            ? 'drop-shadow(0 0 8px rgba(47, 125, 98, 0.45))'
                             : isHovered
-                                ? 'drop-shadow(0 0 6px rgba(96, 165, 250, 0.4))'
+                                ? 'drop-shadow(0 0 6px rgba(201, 130, 74, 0.35))'
                                 : 'none',
                         transition: 'stroke 0.2s ease, stroke-width 0.2s ease, filter 0.2s ease',
                     }}

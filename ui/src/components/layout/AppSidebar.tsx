@@ -7,6 +7,7 @@ import {
   Brain,
   ChevronLeft,
   ChevronRight,
+  ChevronsUpDown,
   CircleDollarSign,
   Database,
   FileText,
@@ -20,7 +21,6 @@ import {
   Settings,
   ShieldCheck,
   TrendingUp,
-  UserRound,
   Workflow,
   Wrench,
 } from "lucide-react";
@@ -31,7 +31,6 @@ import React from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { SidebarTeamSwitcher } from "@/components/layout/SidebarTeamSwitcher";
 import ThemeToggle from "@/components/ThemeSwitcher";
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -56,7 +55,6 @@ import {
 } from "@/components/ui/sidebar";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useAppConfig } from "@/context/AppConfigContext";
-import { useLeadForms } from "@/context/LeadFormsContext";
 import { useTelephonyConfigWarnings } from "@/context/TelephonyConfigWarningsContext";
 import { useLatestReleaseVersion } from "@/hooks/useLatestReleaseVersion";
 import type { LocalUser } from "@/lib/auth";
@@ -171,7 +169,6 @@ export function AppSidebar() {
   const { state, isMobile, setOpenMobile } = useSidebar();
   const { provider, logout, user } = useAuth();
   const { config } = useAppConfig();
-  const { openHireExpert } = useLeadForms();
   const {
     telnyxMissingWebhookPublicKeyCount,
     vonageMissingSignatureSecretCount,
@@ -227,9 +224,9 @@ export function AppSidebar() {
         asChild
         tooltip={tooltip}
         className={cn(
-          "rounded-xl transition-colors hover:bg-accent hover:text-accent-foreground",
+          "relative rounded-md text-sidebar-foreground/75 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
           isItemActive &&
-            "bg-cta/15 font-semibold text-foreground hover:bg-cta/20 hover:text-foreground"
+            "bg-sidebar-accent font-semibold text-sidebar-accent-foreground before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-0.5 before:rounded-full before:bg-sidebar-primary"
         )}
       >
         <Link
@@ -238,16 +235,10 @@ export function AppSidebar() {
           className={cn("relative", isCollapsed && "justify-center")}
           translate="no"
         >
-          {isItemActive && !isCollapsed && (
-            <span
-              className="absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-cta"
-              aria-hidden
-            />
-          )}
           <Icon
             className={cn(
               "h-4 w-4 shrink-0",
-              isItemActive && "text-cta drop-shadow-[0_0_6px_rgba(240,170,70,0.8)]"
+              isItemActive && "text-sidebar-primary"
             )}
           />
           <span
@@ -291,46 +282,29 @@ export function AppSidebar() {
       .join("") || "U";
 
   const userChipTrigger = (
-    <Button
-      variant="ghost"
-      size="icon"
-      className="h-7 w-7 shrink-0 cursor-pointer rounded-full border border-border/80 bg-muted/40 hover:bg-muted/60"
+    <button
+      type="button"
+      className={cn(
+        "flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 rounded-xl p-1.5 text-left outline-none transition-colors hover:bg-sidebar-accent focus-visible:ring-2 focus-visible:ring-sidebar-ring",
+        isCollapsed && "flex-none justify-center"
+      )}
     >
-      <span className="text-xs font-medium">{userInitials}</span>
-    </Button>
-  );
-
-  // "Hire an Expert" CTA, rendered INSIDE the shared footer pill next to the
-  // profile icon. Expanded: label pill filling the row. Collapsed: icon-only.
-  const hireExpertButton = isCollapsed ? (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Button
-          size="icon"
-          className="h-7 w-7 rounded-full"
-          onClick={() => openHireExpert("sidebar")}
-          aria-label="Hire an Expert"
-        >
-          <UserRound className="h-3.5 w-3.5" />
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent side="right">
-        <p>Hire an Expert</p>
-      </TooltipContent>
-    </Tooltip>
-  ) : (
-    <Button
-      size="sm"
-      className="h-7 gap-1.5 rounded-full px-3 text-xs"
-      onClick={() => openHireExpert("sidebar")}
-    >
-      <UserRound className="h-3.5 w-3.5" />
-      Hire an Expert
-    </Button>
+      <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-sidebar-primary text-xs font-semibold text-sidebar-primary-foreground">
+        {userInitials}
+      </span>
+      {!isCollapsed && (
+        <>
+          <span className="min-w-0 flex-1 truncate text-sm font-medium text-sidebar-accent-foreground">
+            {displayIdentity || "Account"}
+          </span>
+          <ChevronsUpDown className="size-4 shrink-0 text-sidebar-foreground/50" />
+        </>
+      )}
+    </button>
   );
 
   return (
-    <Sidebar collapsible="icon" variant="floating" className="app-sidebar-dock py-4">
+    <Sidebar collapsible="icon" variant="sidebar">
       <SidebarHeader className="px-2 py-3 notranslate" translate="no">
         <div className="flex items-center justify-between">
           <div className={cn("flex items-center gap-2", isCollapsed && "hidden")}>
@@ -339,21 +313,13 @@ export function AppSidebar() {
               className="notranslate flex items-center gap-2 px-1"
               translate="no"
             >
-              <BrandLogo mark className="h-6" />
-              {versionInfo && (
-                <span
-                  className="notranslate text-xs font-normal text-muted-foreground"
-                  translate="no"
-                >
-                  v{versionInfo.ui}
-                </span>
-              )}
+              <BrandLogo className="h-6 text-sm" />
             </Link>
             {isBehind && latestRelease && (
               <Tooltip>
                 <TooltipTrigger asChild>
                   <a
-                    href="https://docs.dograh.com/deployment/update"
+                    href="#"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 rounded-md border bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium leading-none text-amber-900 transition-opacity hover:opacity-80 dark:bg-amber-950 dark:text-amber-200"
@@ -406,7 +372,7 @@ export function AppSidebar() {
             {section.label && (
               <SidebarGroupLabel
                 className={cn(
-                  "notranslate text-xs font-semibold uppercase tracking-wider text-muted-foreground",
+                  "notranslate text-[0.68rem] font-medium uppercase tracking-[0.2em] text-sidebar-foreground/45",
                   isCollapsed && "hidden"
                 )}
                 translate="no"
@@ -429,19 +395,14 @@ export function AppSidebar() {
         className={cn("p-3 notranslate", isCollapsed && "p-2")}
         translate="no"
       >
-        <div className="space-y-2">
+        <div className={cn("flex items-center gap-1", isCollapsed && "flex-col")}>
           {provider !== "stack" && (
-            <div
-              className={cn(
-                "flex items-center justify-between gap-1 rounded-full border border-border/60 bg-muted/30 p-1",
-                isCollapsed && "flex-col"
-              )}
-            >
+            <div className="flex min-w-0 flex-1">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   {userChipTrigger}
                 </DropdownMenuTrigger>
-                <DropdownMenuContent side="top" align="start" className="w-56">
+                <DropdownMenuContent side="top" align="start" className="w-60">
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       {(user as LocalUser | undefined)?.email && (
@@ -460,22 +421,16 @@ export function AppSidebar() {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              {hireExpertButton}
             </div>
           )}
 
           {provider === "stack" && (
-            <div
-              className={cn(
-                "flex items-center justify-between gap-1 rounded-full border border-border/60 bg-muted/30 p-1",
-                isCollapsed && "flex-col"
-              )}
-            >
+            <div className="flex min-w-0 flex-1">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   {userChipTrigger}
                 </DropdownMenuTrigger>
-                <DropdownMenuContent side="top" align="start" className="w-56">
+                <DropdownMenuContent side="top" align="start" className="w-60">
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       {user?.displayName && (
@@ -501,17 +456,16 @@ export function AppSidebar() {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              {hireExpertButton}
             </div>
           )}
 
-          <div className="mt-1 flex justify-center">
+          <div className="flex shrink-0 justify-center">
             <Tooltip>
               <TooltipTrigger asChild>
                 <div className="notranslate" translate="no">
                   <ThemeToggle
                     showLabel={false}
-                    className="rounded-full hover:bg-accent hover:text-accent-foreground"
+                    className="rounded-lg text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                   />
                 </div>
               </TooltipTrigger>

@@ -8604,6 +8604,94 @@ export type GetWorkflowsSummaryApiV1WorkflowSummaryGetResponses = {
 
 export type GetWorkflowsSummaryApiV1WorkflowSummaryGetResponse = GetWorkflowsSummaryApiV1WorkflowSummaryGetResponses[keyof GetWorkflowsSummaryApiV1WorkflowSummaryGetResponses];
 
+export type DeleteWorkflowApiV1WorkflowWorkflowIdDeleteData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+        /**
+         * X-Api-Key
+         */
+        'X-API-Key'?: string | null;
+    };
+    path: {
+        /**
+         * Workflow Id
+         */
+        workflow_id: number;
+    };
+    query?: never;
+    url: '/api/v1/workflow/{workflow_id}';
+};
+
+export type DeleteWorkflowApiV1WorkflowWorkflowIdDeleteErrors = {
+    /**
+     * Not found
+     */
+    404: unknown;
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type DeleteWorkflowApiV1WorkflowWorkflowIdDeleteError = DeleteWorkflowApiV1WorkflowWorkflowIdDeleteErrors[keyof DeleteWorkflowApiV1WorkflowWorkflowIdDeleteErrors];
+
+export type DeleteWorkflowApiV1WorkflowWorkflowIdDeleteResponses = {
+    /**
+     * Successful Response
+     */
+    204: void;
+};
+
+export type DeleteWorkflowApiV1WorkflowWorkflowIdDeleteResponse = DeleteWorkflowApiV1WorkflowWorkflowIdDeleteResponses[keyof DeleteWorkflowApiV1WorkflowWorkflowIdDeleteResponses];
+
+export type UpdateWorkflowApiV1WorkflowWorkflowIdPutData = {
+    body: UpdateWorkflowRequest;
+    headers?: {
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+        /**
+         * X-Api-Key
+         */
+        'X-API-Key'?: string | null;
+    };
+    path: {
+        /**
+         * Workflow Id
+         */
+        workflow_id: number;
+    };
+    query?: never;
+    url: '/api/v1/workflow/{workflow_id}';
+};
+
+export type UpdateWorkflowApiV1WorkflowWorkflowIdPutErrors = {
+    /**
+     * Not found
+     */
+    404: unknown;
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type UpdateWorkflowApiV1WorkflowWorkflowIdPutError = UpdateWorkflowApiV1WorkflowWorkflowIdPutErrors[keyof UpdateWorkflowApiV1WorkflowWorkflowIdPutErrors];
+
+export type UpdateWorkflowApiV1WorkflowWorkflowIdPutResponses = {
+    /**
+     * Successful Response
+     */
+    200: WorkflowResponse;
+};
+
+export type UpdateWorkflowApiV1WorkflowWorkflowIdPutResponse = UpdateWorkflowApiV1WorkflowWorkflowIdPutResponses[keyof UpdateWorkflowApiV1WorkflowWorkflowIdPutResponses];
+
 export type UpdateWorkflowStatusApiV1WorkflowWorkflowIdStatusPutData = {
     body: UpdateWorkflowStatusRequest;
     headers?: {
@@ -8691,50 +8779,6 @@ export type MoveWorkflowToFolderApiV1WorkflowWorkflowIdFolderPutResponses = {
 };
 
 export type MoveWorkflowToFolderApiV1WorkflowWorkflowIdFolderPutResponse = MoveWorkflowToFolderApiV1WorkflowWorkflowIdFolderPutResponses[keyof MoveWorkflowToFolderApiV1WorkflowWorkflowIdFolderPutResponses];
-
-export type UpdateWorkflowApiV1WorkflowWorkflowIdPutData = {
-    body: UpdateWorkflowRequest;
-    headers?: {
-        /**
-         * Authorization
-         */
-        authorization?: string | null;
-        /**
-         * X-Api-Key
-         */
-        'X-API-Key'?: string | null;
-    };
-    path: {
-        /**
-         * Workflow Id
-         */
-        workflow_id: number;
-    };
-    query?: never;
-    url: '/api/v1/workflow/{workflow_id}';
-};
-
-export type UpdateWorkflowApiV1WorkflowWorkflowIdPutErrors = {
-    /**
-     * Not found
-     */
-    404: unknown;
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type UpdateWorkflowApiV1WorkflowWorkflowIdPutError = UpdateWorkflowApiV1WorkflowWorkflowIdPutErrors[keyof UpdateWorkflowApiV1WorkflowWorkflowIdPutErrors];
-
-export type UpdateWorkflowApiV1WorkflowWorkflowIdPutResponses = {
-    /**
-     * Successful Response
-     */
-    200: WorkflowResponse;
-};
-
-export type UpdateWorkflowApiV1WorkflowWorkflowIdPutResponse = UpdateWorkflowApiV1WorkflowWorkflowIdPutResponses[keyof UpdateWorkflowApiV1WorkflowWorkflowIdPutResponses];
 
 export type DuplicateWorkflowEndpointApiV1WorkflowWorkflowIdDuplicatePostData = {
     body?: never;

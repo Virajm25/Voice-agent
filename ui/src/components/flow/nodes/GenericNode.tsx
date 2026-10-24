@@ -153,26 +153,26 @@ function getBadgeForSpec(
     variant: NodeStyleVariant,
 ): { label: string; className: string } {
     if (!spec) {
-        return { label: "Node", className: "bg-zinc-500 text-white" };
+        return { label: "Node", className: "bg-stone-500 text-white" };
     }
 
     switch (variant) {
         case "start":
-            return { label: "Start Node", className: "bg-emerald-500 text-white" };
+            return { label: "Start Node", className: "bg-emerald-700 text-white" };
         case "agent":
-            return { label: "Agent Node", className: "bg-blue-500 text-white" };
+            return { label: "Agent Node", className: "bg-sky-700 text-white" };
         case "end":
-            return { label: "End Node", className: "bg-rose-500 text-white" };
+            return { label: "End Node", className: "bg-rose-700 text-white" };
         case "global":
-            return { label: "Global Node", className: "bg-amber-500 text-white" };
+            return { label: "Global Node", className: "bg-amber-700 text-white" };
         case "trigger":
-            return { label: "API Trigger", className: "bg-purple-500 text-white" };
+            return { label: "API Trigger", className: "bg-violet-700 text-white" };
         case "webhook":
-            return { label: "Webhook", className: "bg-indigo-500 text-white" };
+            return { label: "Webhook", className: "bg-indigo-700 text-white" };
         case "qa":
-            return { label: "QA Analysis", className: "bg-teal-500 text-white" };
+            return { label: "QA Analysis", className: "bg-teal-700 text-white" };
         case "integration":
-            return { label: spec.display_name, className: "bg-cyan-600 text-white" };
+            return { label: spec.display_name, className: "bg-cyan-800 text-white" };
     }
 }
 

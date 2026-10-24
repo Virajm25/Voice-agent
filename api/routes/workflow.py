@@ -1072,6 +1072,23 @@ async def get_workflows_summary(
     ]
 
 
+@router.delete("/{workflow_id}", status_code=204)
+async def delete_workflow(
+    workflow_id: int,
+    user: UserModel = Depends(get_user),
+) -> None:
+    """Permanently delete an archived workflow along with its runs and versions."""
+    try:
+        await db_client.delete_archived_workflow(
+            workflow_id=workflow_id,
+            organization_id=user.selected_organization_id,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except PermissionError as e:
+        raise HTTPException(status_code=409, detail=str(e))
+
+
 @router.put("/{workflow_id}/status")
 async def update_workflow_status(
     workflow_id: int,

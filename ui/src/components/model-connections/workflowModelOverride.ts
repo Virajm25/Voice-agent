@@ -156,6 +156,6 @@ export function summarizeConfiguration(spec: ConfigurationSpec | null, connectio
     const model = (role: "llm" | "realtime") => String(spec[role]?.settings?.model || name(spec[role]?.provider_connection_uuid) || "provider default");
     const voice = (role: "tts" | "realtime") => String(spec[role]?.settings?.voice || "default voice");
     if (spec.mode === "realtime") return `${model("realtime")} / ${voice("realtime")}`;
-    if (configurationMode(spec, connections) === "dograh") return `Dograh / ${voice("tts")}`;
+    if (configurationMode(spec, connections) === "dograh") return `Straveda Voice / ${voice("tts")}`;
     return `${model("llm")} / ${voice("tts")}`;
 }

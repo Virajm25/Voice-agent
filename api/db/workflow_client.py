@@ -2,13 +2,14 @@ from datetime import UTC, datetime
 from typing import Optional
 
 from loguru import logger
-from sqlalchemy import func, update
+from sqlalchemy import delete, func, update
 from sqlalchemy.future import select
 from sqlalchemy.orm import load_only, selectinload
 
 from api.db.base_client import BaseDBClient
 from api.db.model_connection_client import ModelCatalogNotFound, ModelConnectionClient
 from api.db.models import (
+    CampaignModel,
     NamedModelConfigurationModel,
     ProviderConnectionModel,
     WorkflowDefinitionModel,
@@ -850,6 +851,66 @@ class WorkflowClient(BaseDBClient):
 
             result = await session.execute(query)
             return result.scalar_one_or_none()
+
+    async def delete_archived_workflow(
+        self, workflow_id: int, organization_id: int
+    ) -> None:
+        """Permanently delete an archived workflow with its runs and versions.
+
+        Raises:
+            ValueError: If the workflow is not found in the organization.
+            PermissionError: If the workflow is not archived, or a campaign
+                still references it.
+        """
+        async with self.async_session() as session:
+            workflow = (
+                await session.execute(
+                    select(WorkflowModel).where(
+                        WorkflowModel.id == workflow_id,
+                        WorkflowModel.organization_id == organization_id,
+                    )
+                )
+            ).scalars().first()
+            if workflow is None:
+                raise ValueError(f"Workflow with ID {workflow_id} not found")
+            if workflow.status != "archived":
+                raise PermissionError("Only archived agents can be deleted")
+
+            campaign_count = await session.scalar(
+                select(func.count())
+                .select_from(CampaignModel)
+                .where(CampaignModel.workflow_id == workflow_id)
+            )
+            if campaign_count:
+                raise PermissionError(
+                    "This agent is used by a campaign. Delete the campaign first."
+                )
+
+            try:
+                # Runs cascade to their transcripts/events; versions are
+                # referenced by runs and by the workflow's own pointer.
+                await session.execute(
+                    delete(WorkflowRunModel).where(
+                        WorkflowRunModel.workflow_id == workflow_id
+                    )
+                )
+                await session.execute(
+                    update(WorkflowModel)
+                    .where(WorkflowModel.id == workflow_id)
+                    .values(released_definition_id=None)
+                )
+                await session.execute(
+                    delete(WorkflowDefinitionModel).where(
+                        WorkflowDefinitionModel.workflow_id == workflow_id
+                    )
+                )
+                await session.execute(
+                    delete(WorkflowModel).where(WorkflowModel.id == workflow_id)
+                )
+                await session.commit()
+            except Exception:
+                await session.rollback()
+                raise
 
     async def update_workflow_status(
         self,

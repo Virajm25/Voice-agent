@@ -10,10 +10,8 @@ import { Button } from "@/components/ui/button";
 import { SidebarInset, SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { PostHogEvent } from "@/constants/posthog-events";
 import { useAppConfig } from "@/context/AppConfigContext";
-import { LeadFormsProvider } from "@/context/LeadFormsContext";
 
 import { AppSidebar } from "./AppSidebar";
-import { GitHubStarBadge } from "./GitHubStarBadge";
 
 function AppHeader() {
   const { toggleSidebar } = useSidebar();
@@ -24,7 +22,7 @@ function AppHeader() {
         <Button variant="ghost" size="icon" onClick={toggleSidebar} aria-label="Open menu" className="md:hidden">
           <Menu className="h-5 w-5" />
         </Button>
-        <Link href="/" className="text-lg font-bold md:hidden">Dograh</Link>
+        <Link href="/" className="text-lg font-bold md:hidden">Straveda Voice</Link>
       </div>
       <div className="flex items-center gap-3">
         <Button variant="ghost" size="sm" asChild>
@@ -41,7 +39,6 @@ function AppHeader() {
             <span className="hidden sm:inline">Join Slack</span>
           </a>
         </Button>
-        <GitHubStarBadge source="app_header" />
       </div>
     </header>
   );
@@ -106,7 +103,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   return (
     <SidebarProvider defaultOpen>
       {shouldShowSidebar ? (
-        <LeadFormsProvider>
           <div className="flex min-h-screen w-full">
             <AppSidebar />
             <SidebarInset className="flex-1">
@@ -119,7 +115,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
               </main>
             </SidebarInset>
           </div>
-        </LeadFormsProvider>
       ) : (
         <div className="app-surface w-full flex-1">
           <BackendStatusBanner />

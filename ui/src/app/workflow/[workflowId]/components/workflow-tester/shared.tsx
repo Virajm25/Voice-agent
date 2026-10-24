@@ -32,11 +32,11 @@ export function EmptyState({
     action?: ReactNode;
 }) {
     return (
-        <div className="flex flex-1 flex-col justify-center rounded-xl border border-border/70 bg-background px-5 py-6 text-left">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+        <div className="flex flex-1 flex-col items-center justify-center rounded-lg border border-dashed border-border bg-card px-6 py-8 text-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-accent-foreground">
                 {icon}
             </div>
-            <div className="mt-4 space-y-1.5">
+            <div className="mt-4 max-w-xs space-y-1.5">
                 <h3 className="text-sm font-semibold text-foreground">{title}</h3>
                 <p className="text-sm leading-6 text-muted-foreground">{description}</p>
             </div>

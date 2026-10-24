@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 
-import { GitHubStarBadge } from '@/components/layout/GitHubStarBadge';
 import { PageLayout } from '@/components/layout/PageLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,9 +13,8 @@ export default function OverviewPage() {
 
     return (
         <PageLayout
-            title={isOSSMode ? "Welcome to Dograh" : `Welcome${user?.displayName ? `, ${user.displayName.split(' ')[0]}` : ''}!`}
-            description={isOSSMode ? "Open source alternative to Vapi. Help us support the project by giving us a star on GitHub." : "Get started with building voice AI workflows"}
-            actions={isOSSMode && <GitHubStarBadge label="Star us on GitHub" showCount source="overview_page" />}>
+            title={isOSSMode ? "Welcome to Straveda Voice" : `Welcome${user?.displayName ? `, ${user.displayName.split(' ')[0]}` : ''}!`}
+            description={isOSSMode ? "Build, test and deploy conversational voice agents." : "Get started with building voice AI workflows"}>
             {/* Quick Actions */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
@@ -57,7 +55,7 @@ export default function OverviewPage() {
                 <CardHeader>
                     <CardTitle>Resources</CardTitle>
                     <CardDescription>
-                        Get help and learn more about Dograh
+                        Get help and learn more about Straveda Voice
                     </CardDescription>
                 </CardHeader>
                 <CardContent>

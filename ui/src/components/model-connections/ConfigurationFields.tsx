@@ -21,7 +21,7 @@ export type ConfigurationFieldsDensity = "full" | "compact";
 const DOGRAH_FIELDS: [ServiceRole, string[]][] = [["tts", ["voice", "speed"]], ["stt", ["language", "language_hints"]], ["llm", ["model", "temperature"]]];
 const MODES: { value: ConfigurationEditorMode; description: string }[] = [
     { value: "realtime", description: "One speech-to-speech model listens and replies." },
-    { value: "dograh", description: "Dograh runs the transcriber, LLM and voice for you." },
+    { value: "dograh", description: "Straveda Voice runs the transcriber, LLM and voice for you." },
     { value: "cascade", description: "Pick your own LLM, STT and TTS providers." },
 ];
 const SERVICE_TAB = "-mb-px h-auto min-w-0 flex-1 flex-col items-start gap-0.5 rounded-none border-0 border-b-2 border-transparent px-3 py-2.5 text-left sm:px-4 text-muted-foreground data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none dark:data-[state=active]:border-primary dark:data-[state=active]:bg-transparent";
@@ -187,10 +187,10 @@ export function ConfigurationFields({ configuration, catalog, connections, onCha
         })}
         <div className="space-y-1.5">
             <div className="flex min-h-6 items-center justify-between gap-2">
-                <Label htmlFor="dograh-provider-connection">Dograh account</Label>
+                <Label htmlFor="dograh-provider-connection">Straveda Voice account</Label>
             </div>
             <ProviderSelect id="dograh-provider-connection" required value={dograhValue} onValueChange={changeDograhConnection}
-                placeholder="Choose an account" addLabel="Add a Dograh account" onAdd={() => setAdding("dograh")}
+                placeholder="Choose an account" addLabel="Add a Straveda Voice account" onAdd={() => setAdding("dograh")}
                 options={dograhConnections.map(connection => ({ value: connection.uuid, label: connection.name }))} />
         </div>
     </div>;
@@ -255,7 +255,7 @@ export function ConfigurationFields({ configuration, catalog, connections, onCha
             </TabsContent>)}
         </Tabs>}
         {adding && <AddProviderDialog open onOpenChange={open => { if (!open) setAdding(null); }} catalog={catalog}
-            title={adding === "dograh" ? "Add a Dograh account" : `Add ${ROLE_ARTICLES[adding]} ${ROLE_LABELS[adding]} provider`}
+            title={adding === "dograh" ? "Add a Straveda Voice account" : `Add ${ROLE_ARTICLES[adding]} ${ROLE_LABELS[adding]} provider`}
             providerKeys={addProviderKeys(adding)} role={adding === "dograh" ? undefined : adding} onSaved={connectionAdded} />}
     </div>;
 }

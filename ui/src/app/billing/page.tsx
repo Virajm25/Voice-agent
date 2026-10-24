@@ -3,9 +3,9 @@
 import {
     ChevronLeft,
     ChevronRight,
-    CircleDollarSign,
     CreditCard,
     ExternalLink,
+    IndianRupee,
     Info,
     RefreshCw,
 } from "lucide-react";
@@ -55,9 +55,9 @@ const formatAmount = (amountMinor?: number | null, currency?: string | null) => 
         return "-";
     }
 
-    return new Intl.NumberFormat(undefined, {
+    return new Intl.NumberFormat("en-IN", {
         style: "currency",
-        currency: currency || "USD",
+        currency: currency || "INR",
     }).format(amountMinor / 100);
 };
 
@@ -268,25 +268,15 @@ export default function BillingPage() {
                     <div className="text-sm text-amber-900 dark:text-amber-200">
                         <p className="font-medium">Credit purchases are unavailable in OSS mode</p>
                         <p className="mt-1">
-                            You can&apos;t purchase credits from this self-hosted app. Sign up and
-                            purchase credits at{" "}
-                            <a
-                                href="https://app.dograh.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 font-medium underline underline-offset-2"
-                            >
-                                app.dograh.com
-                                <ExternalLink className="h-3 w-3" />
-                            </a>
-                            . Then add the generated service key in{" "}
+                            You can&apos;t purchase credits from this self-hosted app. Get a service key from your provider
+                            , then add it in{" "}
                             <Link
                                 href="/model-configurations"
                                 className="font-medium underline underline-offset-2"
                             >
                                 Model Configurations
                             </Link>
-                            . Usage for that service key is visible in app.dograh.com.
+                            . Usage for that key is tracked with your provider.
                         </p>
                     </div>
                 </div>
@@ -297,12 +287,12 @@ export default function BillingPage() {
                     <CardHeader className="pb-2">
                         <CardDescription>{isOssMode ? "Credits remaining" : "Credit balance"}</CardDescription>
                         <CardTitle className="flex items-center gap-2 text-3xl">
-                            <CircleDollarSign className="h-6 w-6 text-muted-foreground" />
+                            <IndianRupee className="h-6 w-6 text-muted-foreground" />
                             {formatCredits(remainingCredits)}
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-sm text-muted-foreground">1 credit = 1 cent</p>
+                        <p className="text-sm text-muted-foreground">1 credit = ₹1</p>
                     </CardContent>
                 </Card>
 
