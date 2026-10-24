@@ -4,7 +4,6 @@ import {
     ChevronLeft,
     ChevronRight,
     CreditCard,
-    ExternalLink,
     IndianRupee,
     Info,
     RefreshCw,

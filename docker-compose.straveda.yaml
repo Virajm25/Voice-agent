@@ -1,0 +1,14 @@
+# Straveda Voice: builds the api and ui images from this source tree instead of
+# pulling upstream's prebuilt (unbranded) images. Use together with the base file:
+#   docker compose -f docker-compose.yaml -f docker-compose.straveda.yaml up -d --build
+services:
+  api:
+    image: straveda-voice-api:latest
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+  ui:
+    image: straveda-voice-ui:latest
+    build:
+      context: .
+      dockerfile: ui/Dockerfile
